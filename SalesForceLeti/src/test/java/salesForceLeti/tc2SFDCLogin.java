@@ -18,8 +18,8 @@ public class tc2SFDCLogin {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://login.salesforce.com/");
-        driver.findElement(By.id("username")).sendKeys("leti@isreal.com");
-        driver.findElement(By.id("password")).sendKeys("testtest123");
+        driver.findElement(By.id("username")).sendKeys("******");
+        driver.findElement(By.id("password")).sendKeys("******");
         driver.findElement(By.id("Login")).click();
         Thread.sleep(2000);
         String actual = driver.getTitle();
