@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Verify Create Account">
+	<test name="Sales Force My Settings">
+		 <classes>
+		 	<class name="salesForceLeti.tc10CreateAccount" />		 	
+		 </classes>
+	</test>	
+	<test name="Sales Force Create New View">
+		 <classes>
+		 	<class name="salesForceLeti.tc11CreateNewView" />		 	
+		 </classes>
+	</test>	
+	<test name="Sales Force Edit View">
+		 <classes>
+		 	<class name="salesForceLeti.tc12EditView" />		 	
+		 </classes>
+	</test>	
+</suite>

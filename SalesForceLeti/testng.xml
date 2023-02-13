@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Sales Force">
+	<test name="Sales Force My Settings">
+		 <classes>
+		 	<class name="salesForceLeti.tc2SFDCLogin" />		 	
+		 </classes>
+	</test>	
+</suite>
