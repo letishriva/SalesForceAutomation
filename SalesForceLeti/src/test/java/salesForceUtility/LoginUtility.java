@@ -14,8 +14,8 @@ public class LoginUtility {
 		System.out.println("Entered class LoginUtility");
 		dr.get("https://login.salesforce.com/");
 		Thread.sleep(2000);		
-		dr.findElement(By.id("username")).sendKeys("leti@isreal.com"); 
-		dr.findElement(By.id("password")).sendKeys("testtest123"); 
+		dr.findElement(By.id("username")).sendKeys("*****"); 
+		dr.findElement(By.id("password")).sendKeys("*****"); 
 		dr.findElement(By.id("Login")).click();
 	}
 }
