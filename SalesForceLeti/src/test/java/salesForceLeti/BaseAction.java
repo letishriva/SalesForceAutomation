@@ -43,6 +43,7 @@ public class BaseAction {
 		}
 	}
 
+	//Test
 	public void setMaxWindowBrowser(WebDriver dr) {		  
 		dr.manage().window().maximize();
 	}
