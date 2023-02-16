@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Sales Force">
-	<test name="Testing all 37 Test cases">
+	<test name="Testing all 37 Sales Force Test cases">
 	<packages>
 	<package name= "salesForceLeti"/>
 	</packages>
