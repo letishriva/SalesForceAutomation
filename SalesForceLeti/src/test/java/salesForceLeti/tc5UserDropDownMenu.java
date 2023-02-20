@@ -9,15 +9,12 @@ import org.testng.annotations.Test;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import salesForceUtility.LoginUtility;
 
-public class tc5UserDropDownMenu {
+public class tc5UserDropDownMenu extends BaseAction {
 //1.	Launch and Login 
 	@Test
 		public static void UserDropDownMenu () throws InterruptedException {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -43,7 +40,7 @@ public class tc5UserDropDownMenu {
 		for (WebElement item : dropDownList) {
 			System.out.print((item.getText())+", ");
 			}
-		ba.closeBrowser(driverSF);
+	//	ba.closeBrowser(driverSF);
 	}
 	}
 

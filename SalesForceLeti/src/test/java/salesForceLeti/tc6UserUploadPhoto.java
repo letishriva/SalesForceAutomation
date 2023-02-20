@@ -24,15 +24,12 @@ import salesForceUtility.LoginUtility;
 //	Click on Add photo link		|| Hover the mouse on myprofilephoto image and Add photo link appears. Click on the link to upload a photo. Click on Choose file button and select the image to upload. Crop the photo to fit the image.		|| Uploaded photo should appear on the image.
 
 
-public class tc6UserUploadPhoto {
+public class tc6UserUploadPhoto extends BaseAction{
 //1.	Launch and Login 
 	@Test
 		public static void UserUploadPhoto () throws InterruptedException, Exception {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -94,7 +91,7 @@ public class tc6UserUploadPhoto {
 		driverSF.findElement(By.partialLinkText("File")).click(); 
 		Thread.sleep(1000); 
 		driverSF.findElement(By.id("chatterUploadFileAction")).click(); //click upload file from computer
-		Thread.sleep(2000); 
+		Thread.sleep(5000); 
 		Actions actions = new Actions(driverSF);
 		actions.moveToElement(driverSF.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr/td/div/div[3]/div[1]/div/div[1]/div/div[2]/ul/li[1]/div/div/div[1]/div[1]/div[2]/div[1]/div[2]/div[2]/form/table/tbody/tr[1]/td/div/div[1]/input"))).click().perform();
 		Thread.sleep(2000); 
@@ -137,7 +134,7 @@ public class tc6UserUploadPhoto {
 		Actions action = new Actions(driverSF);
 		action.moveToElement(photoProfil).build().perform(); //Hover the mouse on myprofilephoto image and Add photo link appears.
 		Thread.sleep(1000);
-		WebElement photoUser = driverSF.findElement(By.partialLinkText("Add Photo"));// Click on the link to upload a photo. 
+		WebElement photoUser = driverSF.findElement(By.id("uploadLink"));// Click on the link to upload a photo. (add photo is only for the 1st time)
 		photoUser.click(); 
 		Thread.sleep(3000); 
 
@@ -153,6 +150,7 @@ public class tc6UserUploadPhoto {
 		driverSF.findElement(By.xpath("//*[@id=\'j_id0:j_id7:save\']")).click();//2nd save button
 		Thread.sleep(2000); 
 		
-		ba.closeBrowser(driverSF);
+//		PASSED
+//		ba.closeBrowser(driverSF);
 	}
 }

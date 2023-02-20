@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import salesForceUtility.LoginUtility;
 
-public class tc7MySettingsDropDown {
+public class tc7MySettingsDropDown extends BaseAction {
 
 	//	1	Select user menu for <username> drop down[TC01]
 	//	2	Click "My Settings" option from user menu
@@ -22,11 +22,8 @@ public class tc7MySettingsDropDown {
 	
 	@Test
 	public static void verifyMySettingsMenu() throws InterruptedException, AWTException {	
-			WebDriver driverSF;		
-			BaseAction ba = new BaseAction();
+			WebDriver driverSF = driver;		
 			LoginUtility loginSF =  new LoginUtility();
-			driverSF = ba.getWebDriver("chrome");
-			ba.setMaxWindowBrowser(driverSF);
 			loginSF.loginToSalesForce(driverSF);
 			Thread.sleep(2000); // we let the page load
 			String actual = driverSF.getTitle();
@@ -57,20 +54,40 @@ public class tc7MySettingsDropDown {
 			WebElement contentDropdown = driverSF.findElement(By.id("p4"));
 			contentDropdown.click();
 			Select contentSelect = new Select(contentDropdown);
-			contentSelect.selectByValue("02uDn000002FI2x");
+			contentSelect.selectByValue("02uDn000002FI2x");  // SalesForce Chatter
 			Thread.sleep(2000); 
 			
 		// from Salesforce Chatter, now we have to select "Reports"	
 		    WebElement availableTabs = driverSF.findElement(By.id("duel_select_0"));
 			Select selectReports = new Select(availableTabs);
-	
-			selectReports.selectByVisibleText("Reports"); 
+			Thread.sleep(1000); 
+			selectReports.selectByValue("report");
 			Thread.sleep(1000); 
 			driverSF.findElement(By.id("duel_select_0_right")).click();// click on add button
 			Thread.sleep(1000); 
 			driverSF.findElement(By.name("save")).click();
-			Thread.sleep(2000); 
-			System.out.println("what to assert Reports page was added???"); 
+			Thread.sleep(3000); 
+			System.out.println("what to assert Reports page was added???"); // it doesn't show as mentionned
+			
+//---------> in order to perform the case again I need to revert this action for future tests
+			
+			// click on content - Select "Salesforce Chatter" option from custom App: drop down. Select Reports tab from Available Tabs list. Click on >(Add) button. 
+			driverSF.findElement(By.linkText("Display & Layout")).click();
+			driverSF.findElement(By.linkText("Customize My Tabs")).click();
+			Thread.sleep(1000); 
+			WebElement contentDropdown2 = driverSF.findElement(By.id("p4"));
+			contentDropdown2.click();
+			Select SalesForceChatter = new Select(contentDropdown2);
+			SalesForceChatter.selectByValue("02uDn000002FI2x"); // SalesForce Chatter
+			Thread.sleep(3000); 
+			WebElement selectedTabs = driverSF.findElement(By.id("duel_select_1"));
+			Select selectReports2 = new Select(selectedTabs);
+			selectReports2.selectByValue("report"); 
+			Thread.sleep(1000); 
+			driverSF.findElement(By.id("duel_select_0_left")).click();// click on remove button
+			Thread.sleep(1000); 
+			driverSF.findElement(By.name("save")).click();
+			Thread.sleep(3000); 
 			
 // 4	Click on Email link and click on my email settings link under that
 			driverSF.findElement(By.linkText("Email")).click();
@@ -101,7 +118,7 @@ public class tc7MySettingsDropDown {
 			driverSF.findElement(By.id("testbtn")).click(); // Open a test Reminder 
 			System.out.println(" How to assert that the correct Pop up got open ? ");
 			
-			ba.closeBrowser(driverSF);
+//			ba.closeBrowser(driverSF);
 			
 	}
 

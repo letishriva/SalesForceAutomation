@@ -17,16 +17,13 @@ import salesForceUtility.LoginUtility;
 <AccountName>"	Account name should be displayed in account name fIEld
 6	Click On Save	Click on Save button	New contact should be created
 */
-public class tc25createNewContact {
+public class tc25createNewContact extends BaseAction {
 //1.	Launch and Login 
 	
 	@Test
 	public static void createNewContact () throws InterruptedException {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -38,7 +35,7 @@ public class tc25createNewContact {
 		driverSF.findElement(By.id("Contact_Tab")).click();
 		Thread.sleep(2000);
 		
-// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+// a pop up opens!! 
 		driverSF.findElement(By.id("tryLexDialog"));
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
@@ -69,6 +66,6 @@ public class tc25createNewContact {
     	String actual3 = driverSF.getTitle();
     	Assert.assertEquals(actual3, expected3, "New Contact Creation page created");
 			
-	ba.closeBrowser(driverSF);
+//	ba.closeBrowser(driverSF);
 	}		
 }

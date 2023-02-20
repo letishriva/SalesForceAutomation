@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import salesForceUtility.LoginUtility;
 
-	public class tc8developersConsole {
+	public class tc8developersConsole extends BaseAction {
 //1	Select user menu for <username> drop down[TC01]	
 //user menu for <username> drop down is selected	
 //Drop down with "My profile", "My Settings", "Developer Console","Logout" is displayed
@@ -20,11 +20,8 @@ import salesForceUtility.LoginUtility;
 
 	@Test
 	public static void developersConsole () throws InterruptedException {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -55,7 +52,7 @@ import salesForceUtility.LoginUtility;
 // 3Click on close button 
 //Click on close button the developer console browser	Force.com Developer Console window is closed >> NO CLOSE BUTTON ??
 	
-		ba.closeBrowser(driverSF);
+//		ba.closeBrowser(driverSF);
 	}
 
 }

@@ -4,18 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import salesForceUtility.LoginUtility;
 
-public class tc3CheckRememberMe {
-
-	public static void main(String[] args) throws Exception {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+public class tc3CheckRememberMe extends BaseAction{
+@Test
+	public static void checkRememberMe () throws Exception {
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -40,7 +38,7 @@ public class tc3CheckRememberMe {
 		} else {
 			System.out.println("Remember Me script failed");
 		}
-		driverSF.close();
+	
 	}
 
 }

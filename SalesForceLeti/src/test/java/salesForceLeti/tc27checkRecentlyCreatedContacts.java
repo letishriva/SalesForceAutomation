@@ -15,16 +15,13 @@ import salesForceUtility.LoginUtility;
 3	Select recently created 	Select 'Recently created' from the drop down list in the right hand side of the 'Recent contact' frame of contacts page	Recently created contacts should be displayed
 
 */
-public class tc27checkRecentlyCreatedContacts {
+public class tc27checkRecentlyCreatedContacts extends BaseAction {
 //1.	Launch and Login 
 	
 	@Test
 	public static void checkRecentlyCreatedContacts () throws InterruptedException {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -36,7 +33,7 @@ public class tc27checkRecentlyCreatedContacts {
 		driverSF.findElement(By.id("Contact_Tab")).click();
 		Thread.sleep(2000);
 		
-// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+// a pop up opens!! 
 		driverSF.findElement(By.id("tryLexDialog"));
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
@@ -44,16 +41,15 @@ public class tc27checkRecentlyCreatedContacts {
 		
 //	3	Select recently created 	Select 'Recently created' from the drop down list in the right hand side of the 'Recent contact' frame of contacts page	Recently created contacts should be displayed
 		WebElement dropdown = driverSF.findElement(By.id("hotlist_mode"));
+		dropdown.click();
 		Select selectRecentlyCreated = new Select(dropdown);
-		selectRecentlyCreated.selectByValue("Recently Created"); 
+		selectRecentlyCreated.selectByVisibleText("Recently Created");
 		Thread.sleep(2000);
-		
-		driverSF.findElement(By.partialLinkText("Recently Created")).click(); 
-		String expected2 = "Recently Created Contacts";
-    	String actual2 = driverSF.getTitle();
-    	Assert.assertEquals(actual2, expected2, "Recently created contacts are displayed");
- 
-// How to assess- Screenshot?	
-    	ba.closeBrowser(driverSF);
+		String expected2 = "Recent Contacts";
+		String actual2 = driverSF.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr/td[2]/div[3]/div[1]/div/div[1]/form/table/tbody/tr/td[1]/h3")).getText();// Recent Contacts frame
+
+    	Assert.assertEquals(actual2, expected2, "Recently created contacts frame is displayed");
+
+  //  	ba.closeBrowser(driverSF);
 	}		
 }

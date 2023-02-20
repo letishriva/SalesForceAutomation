@@ -32,16 +32,13 @@ import salesForceUtility.LoginUtility;
 12	Click 'Month View' icon	Click 'Month View' icon	1. The 'Calendar for FirstName LastName - Month View' page should be displayed.  2. Current date and a week from current date should have the 'Other' event blocked as a link.
 
 */
-public class tc37blockingEventWeeklyRecurrence {
+public class tc37blockingEventWeeklyRecurrence extends BaseAction {
 //1.	Launch and Login 
 
 	@Test
 	public static void blockingEventWeeklyRecurrence () throws InterruptedException, AWTException, Exception {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -58,7 +55,7 @@ public class tc37blockingEventWeeklyRecurrence {
 		Assert.assertEquals(actualPage, expectedPage, "Home page passed");
 		Thread.sleep(2000);
 
-		// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+		// a pop up opens!! 
 		driverSF.findElement(By.id("tryLexDialog"));
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
@@ -115,7 +112,7 @@ public class tc37blockingEventWeeklyRecurrence {
 		driverSF.findElement(By.id("EndDateTime_time")).click();
 		// how to  assert that we get time starting from 9PM till 11:30PM ??? with a screenshot at this moment?
 		File screenshot = ((TakesScreenshot)driverSF).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(screenshot, new File("screenshot.png"));
+		FileUtils.copyFile(screenshot, new File("assessScreenshots/screenshotTC37" + System.currentTimeMillis()+ ".png"));
 		// YES > Screenshot is generated  and shows the options of selection: C:\working\eclipseworkspace\SeleniumWithMaven
 		
 //7	Select '7:00 PM' from the dropdown.	Select '7:00 PM' from the dropdown.	7:00 PM should be selected in the 'End' field.
@@ -170,7 +167,7 @@ public class tc37blockingEventWeeklyRecurrence {
 		String actualViewPage = driverSF.getTitle();
 		Assert.assertEquals(actualViewPage, expectedViewPage, "Calendar Monthly View for Leti Casta is displayed");
 		
-		ba.closeBrowser(driverSF);
+//		ba.closeBrowser(driverSF);
 
 	}		
 }

@@ -3,13 +3,14 @@ package salesForceLeti;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import salesForceUtility.LoginUtility;
 // Only Test Case where we have to tests for Edge, Firefox and Chrome (ALL 3 BROWSERS)
-public class TC1LoginErrorMessage {
-
-	public static void main(String[] args) throws Exception {
+public class TC1LoginErrorMessage extends BaseAction {
+@Test
+	public static void loginErrorMessage() throws Exception {
 //1. Firefox Browser
 		WebDriver driverSF;		
 		BaseAction ba = new BaseAction();

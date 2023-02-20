@@ -18,16 +18,12 @@ import salesForceUtility.LoginUtility;
 6	Launch and Login 	Launch and Login  to SalesForce Application	1. SalesForce application should be Launced.                                                                     2. The tab removed at step 3 should not be displayed in the tab bar.
 
 */
-public class tc35checkTabCustomization {
-//1.	Launch and Login 
+public class tc35checkTabCustomization extends BaseAction {
 
 	@Test
 	public static void checkTabCustomization () throws InterruptedException, AWTException {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -43,7 +39,7 @@ public class tc35checkTabCustomization {
 		Assert.assertEquals(actualPage, expectedPage, "Home page passed");
 		Thread.sleep(2000);
 
-		// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+		// a pop up opens!! 
 		driverSF.findElement(By.id("tryLexDialog"));
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
@@ -66,7 +62,7 @@ public class tc35checkTabCustomization {
 //3	Remove any tab	Select any tab from the 'Selected Tabs' section and click Remove button.	The selected tab should be removed from the 'Selected Tabs' section and should be moved to the 'Available Tabs' section.		
 		WebElement selectedTabs = driverSF.findElement(By.id("duel_select_1"));
 		Select selectLeads = new Select(selectedTabs); // we select Leads fron the Selected Tabs
-		selectLeads.selectByVisibleText("Leads"); 
+		selectLeads.selectByVisibleText("Leads");  // I remove a Tab but we will have to put it back!!!
 		driverSF.findElement(By.id("duel_select_0_left")).click();// click on left button
 				
 // 4	Click on Save	Click on Save button	1. The 'All Tabs' page should be displayed.            2. The tab removed at step 3 should not be displayed in the tab bar.
@@ -94,7 +90,22 @@ public class tc35checkTabCustomization {
 		String expectedHomePage = "Home Page ~ Salesforce - Developer Edition";
 		String actualHomePage = driverSF.getTitle();
 		Assert.assertEquals(actualHomePage, expectedHomePage, "Application is launched");
-
-		ba.closeBrowser(driverSF);
+		
+// For testing >> WE NEED TO ADD BACK THE LEADS TAB FOR FUTURE TESTS
+		driverSF.findElement(By.id("AllTab_Tab")).click();
+		Thread.sleep(2000); 
+		driverSF.findElement(By.xpath("/html/body/div/div[2]/table/tbody/tr/td[2]/div[3]/div[1]/table/tbody/tr/td[2]/input")).click();//customize my tabs
+		Thread.sleep(2000); 
+	    WebElement availableTabs = driverSF.findElement(By.id("duel_select_0"));
+		Select selectTab = new Select(availableTabs);
+		Thread.sleep(1000); 
+		selectTab.selectByValue("Lead");
+		Thread.sleep(1000); 
+		driverSF.findElement(By.id("duel_select_0_right")).click();// click on add button
+		Thread.sleep(1000); 
+		driverSF.findElement(By.name("save")).click();
+		Thread.sleep(3000); 
+		
+//		ba.closeBrowser(driverSF);
 	}		
 }

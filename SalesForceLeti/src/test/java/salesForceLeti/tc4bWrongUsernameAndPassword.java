@@ -3,12 +3,13 @@ package salesForceLeti;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class tc4bWrongUsernameAndPassword {
-
-	public static void main(String[] args) throws InterruptedException {
+public class tc4bWrongUsernameAndPassword extends BaseAction {
+@Test
+	public static void bWrongUsernameAndPassword() throws InterruptedException {
 		String expected = "Your login attempt has failed. The username or password may be incorrect, or your location or login time may be restricted. Please contact the administrator at your company for help";
 		WebDriver driverSF;		
 		BaseAction ba = new BaseAction();

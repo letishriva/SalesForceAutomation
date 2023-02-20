@@ -1,12 +1,13 @@
 
 package salesForceLeti;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import salesForceUtility.LoginUtility;
 /*
 2	Select 'Todays leads'	Select 'My unread leads' from the view drop down and logout from the application	Todays leads' should be selected from the drop down and the salesforce login page appears
@@ -15,20 +16,26 @@ import salesForceUtility.LoginUtility;
 5	click Go button	Click on go button without changing list selection	Which ever default view was selected during last session, that page should be displayed.Ex:'Todays leads' view should have been the default view and that view's page should be displayed once the go button is clicked
 
 */
-public class tc22leadsDefaultView {
+public class tc22leadsDefaultView extends BaseAction {
 	    @Test
     public static void leadsDefaultView() throws InterruptedException {
-    	WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		logger.info("inside TC22 Leads Default View");  
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
 		String expected = "Home Page ~ Salesforce - Developer Edition";
 		Assert.assertEquals(actual, expected, "login passed");
 		Thread.sleep(2000);
+//1	Click leads tab link from Home Page	Click leads tab link from Home Page	Link should navigate to Leads Home page
+    	driverSF.findElement(By.id("Lead_Tab")).click();
+    	Thread.sleep(2000);	
+		
+    	// a pop up opens!! 
+    			driverSF.switchTo().activeElement();
+    			driverSF.findElement(By.id("tryLexDialogX")).click();
+    			Thread.sleep(2000);		
     	
 //2	Select 'Todays leads'	Select 'My unread leads' from the view drop down and logout from the application	Todays leads' should be selected from the drop down and the salesforce login page appears
  	
@@ -49,17 +56,19 @@ public class tc22leadsDefaultView {
 		
 //	3	Login to salesforce again	Enter Username and pasword and click login 	User should be logged in to the application
 // 4	Click leads tab link from Home Page	Click leads tab link from Home Page	Leads homepage should be displayed
-    	driverSF = tc2SFDCLogin.loginToSalesForce();
+		loginSF.loginToSalesForce(driverSF);
+		Thread.sleep(2000); // we let the page load
+		String actual2 = driverSF.getTitle();
+		String expected2 = "Home Page ~ Salesforce - Developer Edition";
+		Assert.assertEquals(actual2, expected2, "login passed");
+		Thread.sleep(2000);
+
     	driverSF.findElement(By.id("Lead_Tab")).click();
     	Thread.sleep(3000);
-    	// a pop up opens!! we need to close it before we can reach "create new account"-----------------
-    	driverSF.switchTo().activeElement();
-    	driverSF.findElement(By.id("tryLexDialogX")).click();
-    	Thread.sleep(3000);
-
-    	String expected2 = "Leads: Home ~ Salesforce - Developer Edition";
-    	String actual2 = driverSF.getTitle();
-    	 Assert.assertEquals(actual2, expected2, "login and Leads Home page passed again");
+    	
+    	String expected3 = "Leads: Home ~ Salesforce - Developer Edition";
+    	String actual3 = driverSF.getTitle();
+    	 Assert.assertEquals(actual3, expected3, "login and Leads Home page passed again");
 		
 //	5	click Go button	Click on go button without changing list selection	Which ever default view was selected during last session, that page should be displayed.Ex:'Todays leads' view should have been the default view and that view's page should be displayed once the go button is clicked
 
@@ -68,7 +77,7 @@ public class tc22leadsDefaultView {
     	// My Unread Leads was selected during last session and should be displayed
     	
 // How To assess ? Should I take a screenshot ???
-    	ba.closeBrowser(driverSF);
+ //   	ba.closeBrowser(driverSF);
     	}
    }
 // PASS

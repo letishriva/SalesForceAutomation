@@ -16,16 +16,13 @@ import salesForceUtility.LoginUtility;
 5	Enter VIEw Unique Name	Enter the <VIEw Unique Name> fIEld in the VIEw Unique Name fIEld.It will be automatically given by the salesforce application, one can modify if they wish	VIEw Unique Name should be entered in the vIEw Unique Name fIEld.	
 6	Click on Save	Click on save button	Contacts Home page is opened. Created VIEw name is displayed in drop down in that page by defalut. 	
 */
-public class tc26newViewContactPage {
+public class tc26newViewContactPage extends BaseAction {
 //1.	Launch and Login 
 	
 	@Test
 	public static void newViewContactPage () throws InterruptedException {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -37,7 +34,7 @@ public class tc26newViewContactPage {
 		driverSF.findElement(By.id("Contact_Tab")).click();
 		Thread.sleep(2000);
 		
-// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+// a pop up opens!! 
 		driverSF.findElement(By.id("tryLexDialog"));
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
@@ -66,6 +63,6 @@ public class tc26newViewContactPage {
 		driverSF.findElement(By.name("save")).click(); // click on save Button
 		Thread.sleep(2000);		
 // How to assess that created View name is displayed in drop down in that page by default. Screenshot?	
-	ba.closeBrowser(driverSF);
+//	ba.closeBrowser(driverSF);
 	}		
 }

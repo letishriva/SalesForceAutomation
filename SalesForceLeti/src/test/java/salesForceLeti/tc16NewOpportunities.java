@@ -14,18 +14,14 @@ import salesForceUtility.LoginUtility;
 3	Click on the New button to create new Opty	New Opportunity Edit page is displayed. Enter Opportunity Name,Account Name,Close Date,Stage,Probability,Lead Source , Primary Campaign Source and click on save button.	New Opportunity page is displayed with Opportunity details.
 */
 
-public class tc16NewOpportunities {
+public class tc16NewOpportunities extends BaseAction{
 //1.	Launch and Login 
 	
 	@Test
 	
-
 	public static void newOpportunites () throws InterruptedException {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -38,7 +34,7 @@ public class tc16NewOpportunities {
 		Thread.sleep(2000);
 
 		
-// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+// a pop up opens!! 
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
 		Thread.sleep(2000);		
@@ -71,7 +67,7 @@ public class tc16NewOpportunities {
 		// HOW TO ASSESS WHEN IT IS FAILING ?
 	
 			
-		ba.closeBrowser(driverSF);
+	//	ba.closeBrowser(driverSF);
 	}
 		
 }

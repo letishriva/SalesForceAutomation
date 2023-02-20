@@ -17,16 +17,13 @@ Unique Name : EFGH)"	The vIEw name and Unique name should be enetered
 5	Click Cancel button	Click the Cancel Button	Contacts Home page is displayed and the VIEw ABCD should not be created.
 
 */
-public class tc31checkCancelButtonOfCreateView {
+public class tc31checkCancelButtonOfCreateView extends BaseAction {
 //1.	Launch and Login 
 	
 	@Test
 	public static void checkCancelButtonOfCreateView () throws InterruptedException {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -38,7 +35,7 @@ public class tc31checkCancelButtonOfCreateView {
 		driverSF.findElement(By.id("Contact_Tab")).click();
 		Thread.sleep(2000);
 		
-// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+// a pop up opens!! 
 		driverSF.findElement(By.id("tryLexDialog"));
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
@@ -67,6 +64,6 @@ public class tc31checkCancelButtonOfCreateView {
     	String actualPage = driverSF.getTitle();
     	Assert.assertEquals(actualPage, expectedPage, " Return to home page with Standard Title ");
     
-    	ba.closeBrowser(driverSF);
+ //   	ba.closeBrowser(driverSF);
 	}		
 }

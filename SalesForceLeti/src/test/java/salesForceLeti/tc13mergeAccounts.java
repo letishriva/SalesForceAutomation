@@ -16,16 +16,13 @@ import salesForceUtility.LoginUtility;
 3	Select accounts to merge	On the accounts page in Tools area, click on Merge Accounts link. Enter the <Account name> in the text box of merge accounts page and click Find accounts button. Entered <Account name> should result in atleast 2 or more account links. Select first two account links displayed in the list and click on Next button	Merge by Accounts step 2 page is displayed with the selected accounts details to merge
 4	Merge accounts	Click on Merge button on Merge by accounts step 2 page. Click on OK button on the pop up.	New pop up for account merge confirmation is displayed and once the accounts are merged, account page is displayed. In recently viewed view, new merged account is listed.
 */
-public class tc13mergeAccounts {
+public class tc13mergeAccounts extends BaseAction {
 	@Test
 	
 	public static void mergeAccounts() throws InterruptedException {
 //1.launch and Login 	Launch https://www.login.salesforce.com and provide positive <username> and <password> data to SalesForce Application.
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -37,7 +34,7 @@ public class tc13mergeAccounts {
 		driverSF.findElement(By.id("Account_Tab")).click();// click on Accounts link
 		Thread.sleep(2000);
 		
-// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+// a pop up opens!! 
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
 		Thread.sleep(2000);
@@ -53,7 +50,9 @@ public class tc13mergeAccounts {
 		driverSF.findElement(By.id("srch")).sendKeys("new");// enter "new" in text box area to reach dummy accounts NewAccount1 and NewAccount1
 		driverSF.findElement(By.name("srchbutton")).click(); // click on Find accounts button
 // select first 2 links and click on Next 
-// 2 first links are selected by default!
+		driverSF.findElement(By.id("cid0")).click();
+		driverSF.findElement(By.id("cid1")).click();
+// sometimes 2 first links are selected by default!
 		driverSF.findElement(By.name("goNext")).click();
 
 //4	Merge accounts	Click on Merge button on Merge by accounts step 2 page. Click on OK button on the pop up.	New pop up for account merge confirmation is displayed and once the accounts are merged, account page is displayed. In recently viewed view, new merged account is listed.
@@ -76,6 +75,6 @@ public class tc13mergeAccounts {
 		String actualNewPageName = driverSF.getTitle();
 		Assert.assertEquals(actualNewPageName, expectedNewPageName, "account page is displayed"); 
 		
-		ba.closeBrowser(driverSF);
+//		ba.closeBrowser(driverSF);
 	}
 }

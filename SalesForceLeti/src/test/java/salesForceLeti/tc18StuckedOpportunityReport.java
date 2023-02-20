@@ -14,15 +14,12 @@ import salesForceUtility.LoginUtility;
 3	Click on Stuck Opportunities link  	Click on Stuck Opportunities link  under Reports.	Report Page with the Opportunities that are Stuck will be displayed.
 */
 
-public class tc18StuckedOpportunityReport {
+public class tc18StuckedOpportunityReport extends BaseAction {
 //1.	Launch and Login 
 	@Test
-		public static void StuckedOpportunityReport () throws InterruptedException {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+	public static void StuckedOpportunityReport () throws InterruptedException {
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -35,7 +32,7 @@ public class tc18StuckedOpportunityReport {
 		Thread.sleep(2000);
 
 		
-// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+// a pop up opens!! 
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
 		Thread.sleep(2000);		
@@ -49,11 +46,15 @@ public class tc18StuckedOpportunityReport {
 		String actualPage = driverSF.getTitle();
 		String expectedPage="Stuck Opportunities ~ Salesforce - Developer Edition";
 		Assert.assertEquals(actualPage, expectedPage, "Report Page with the Opportunities that are Stuck displayed");
-		
-		ba.closeBrowser(driverSF);
 		  
 		  // done and assessed
 		}
 
 	}
 		
+
+
+
+
+
+

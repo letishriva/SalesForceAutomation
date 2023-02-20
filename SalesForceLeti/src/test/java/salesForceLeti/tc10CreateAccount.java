@@ -13,17 +13,14 @@ import salesForceUtility.LoginUtility;
 //Click on Accounts link on the home page
 //Click on the New button to create new account
 
-public class tc10CreateAccount {
+public class tc10CreateAccount extends BaseAction {
 //1.	Launch and Login 
 //	Click on the New button to create new account
 	
 	@Test
 	public static void CreateAccount () throws InterruptedException {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -35,11 +32,11 @@ public class tc10CreateAccount {
 		driverSF.findElement(By.id("Account_Tab")).click();// click on Accounts link
 		Thread.sleep(2000);
 
-// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+// a pop up opens!! 
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
 		Thread.sleep(2000);
-//--------------------------------------------------------------------------------------------------
+
 //3.Click on the New button to create new account
 		driverSF.findElement(By.id("createNewButton")).click();//click on create new Button
 		driverSF.findElement(By.linkText("Account")).click();// click on create new account  
@@ -61,6 +58,6 @@ public class tc10CreateAccount {
 		driverSF.findElement(By.name("save"));
 		System.out.println("how to evaluate : New account page is displayed with account details??? ");
 		Thread.sleep(5000);
-		ba.closeBrowser(driverSF);
+	//	ba.closeBrowser(driverSF);
 	}
 }

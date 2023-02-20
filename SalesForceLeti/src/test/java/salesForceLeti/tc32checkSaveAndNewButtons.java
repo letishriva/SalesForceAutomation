@@ -14,16 +14,12 @@ import salesForceUtility.LoginUtility;
 4	Contact Edit: New Contact Page	Enter the last name and Account Name(Last Name - Indian, Account Name-Global Media)	Last Name and the Account Name should be enetered.
 5	Click Save & New button	Click the Save & New button	New contact is created. Contact Edit: New Contact Page is dispalyed
 */
-public class tc32checkSaveAndNewButtons {
-//1.	Launch and Login 
-	
+public class tc32checkSaveAndNewButtons extends BaseAction {
+
 	@Test
 	public static void checkSaveAndNewButtons () throws InterruptedException {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -35,7 +31,7 @@ public class tc32checkSaveAndNewButtons {
 		driverSF.findElement(By.id("Contact_Tab")).click();
 		Thread.sleep(2000);
 		
-// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+// a pop up opens!! 
 		driverSF.findElement(By.id("tryLexDialog"));
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
@@ -62,6 +58,6 @@ public class tc32checkSaveAndNewButtons {
     	// if account name is correct, function works
    // FAIL : GLOBAL MEDIA DOESN'T EXIST
     
-    	ba.closeBrowser(driverSF);
+ //   	ba.closeBrowser(driverSF);
 	}		
 }

@@ -13,14 +13,11 @@ import salesForceUtility.LoginUtility;
 1	Click leads tab link from Home Page	Link should navigate to Leads Home page	Leads homepage should be displayed
 2	select Todays Leads from the view drop down	click on Today's Leads from the view drop down click on go button	Todays's Lead page should be displayed.
 */
-public class tc23todaysLeads {
+public class tc23todaysLeads extends BaseAction {
     @Test
     public static void todaysLeads() throws InterruptedException {
-    	WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -30,7 +27,7 @@ public class tc23todaysLeads {
 		
     	driverSF.findElement(By.id("Lead_Tab")).click();
     	Thread.sleep(3000);
-    	// a pop up opens!! we need to close it before we can reach "create new account"-----------------
+    	// a pop up opens!!
     	driverSF.switchTo().activeElement();
     	driverSF.findElement(By.id("tryLexDialogX")).click();
     	Thread.sleep(3000);
@@ -48,7 +45,7 @@ public class tc23todaysLeads {
     	driverSF.findElement(By.name("go")).click();
 
 		Thread.sleep(3000);
-	    ba.closeBrowser(driverSF);
+	//    ba.closeBrowser(driverSF);
 		
 		// How To assess ? Should I take a screenshot ???
     	

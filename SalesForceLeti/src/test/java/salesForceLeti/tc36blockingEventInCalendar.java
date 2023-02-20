@@ -22,16 +22,13 @@ import salesForceUtility.LoginUtility;
 7	Select '9:00 PM' from the dropdown.	Select '9:00 PM' from the dropdown.	9:00 PM should be selected in the 'End' field.
 8	Click Save button	Click Save button	The 'Calendar for FirstName LastName' page should be displayed with 'Other' event in the time slot 8:00PM to 9:00PM, as a link.
 */
-public class tc36blockingEventInCalendar {
+public class tc36blockingEventInCalendar extends BaseAction {
 //1.	Launch and Login 
 
 	@Test
 	public static void blockingEventInCalendar () throws InterruptedException, AWTException, Exception {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -48,7 +45,7 @@ public class tc36blockingEventInCalendar {
 		Assert.assertEquals(actualPage, expectedPage, "Home page passed");
 		Thread.sleep(2000);
 
-		// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+		// a pop up opens!! 
 		driverSF.findElement(By.id("tryLexDialog"));
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
@@ -100,8 +97,8 @@ public class tc36blockingEventInCalendar {
 		driverSF.findElement(By.id("EndDateTime_time")).click();
 		// how to  assert that we get time starting from 9PM till 11:30PM ??? with a screenshot at this moment?
 		File screenshot = ((TakesScreenshot)driverSF).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(screenshot, new File("screenshot.png"));
-		// YES > Screenshot is generated  and shows the options of selection: C:\working\eclipseworkspace\SeleniumWithMaven
+		FileUtils.copyFile(screenshot, new File("assessScreenshots/screenshotTC36" + System.currentTimeMillis()+ ".png"));
+		// YES > Screenshot is generated  and shows the options of selection * Screenshots in file "assessScreenshots"
 		
 //	7	Select '9:00 PM' from the dropdown.	Select '9:00 PM' from the dropdown.	9:00 PM should be selected in the 'End' field.
 		driverSF.findElement(By.id("EndDateTime_time")).click();
@@ -114,6 +111,6 @@ public class tc36blockingEventInCalendar {
 		driverSF.findElement(By.name("save")).click();
 	
 		// How to assess ? With another screenshot?
-		ba.closeBrowser(driverSF);
+//		ba.closeBrowser(driverSF);
 	}		
 }

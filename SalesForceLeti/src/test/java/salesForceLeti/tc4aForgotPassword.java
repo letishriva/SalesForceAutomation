@@ -3,18 +3,23 @@ package salesForceLeti;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import salesForceUtility.LoginUtility;
 
-public class tc4aForgotPassword {
 
-	public static void main(String[] args) throws Throwable {
+public class tc4aForgotPassword extends BaseAction{
+	@Test
+
+	public static void aForgotPassword() throws Throwable {
+		BaseAction ba = new BaseAction();
+		logger.info("inside TC4A Forgot Password");
+		WebDriver driverSF = driver;	
+		driverSF = ba.getWebDriver("chrome");
+		ba.setMaxWindowBrowser(driverSF);		
 		String expectedForgotPage = "Forgot Your Password | Salesforce";
 		String expectedResetPage = "Check Your Email | Salesforce";
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		driverSF.get("https://login.salesforce.com/");
 		driverSF.findElement(By.id("forgot_password_link")).click(); // click on forgot password
 		

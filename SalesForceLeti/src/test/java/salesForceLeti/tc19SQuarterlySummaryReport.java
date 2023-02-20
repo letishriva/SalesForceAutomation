@@ -16,17 +16,14 @@ import salesForceUtility.LoginUtility;
 3	Click on Quarterly Summary link  	Click on Quarterly Summary link and choose list of values for Interval such as Current FQ,Next FQ and Include such as All,Open or closed Opportunities	Report Page with the Opportunities that satisfies the search criteria will be displayed.
 */
 
-public class tc19SQuarterlySummaryReport {
+public class tc19SQuarterlySummaryReport extends BaseAction {
 
 //1.	Launch and Login 
 	
 	@Test
 		public static void QuarterlySummaryReport () throws InterruptedException {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -39,7 +36,7 @@ public class tc19SQuarterlySummaryReport {
 		Thread.sleep(2000);
 
 		
-// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+// a pop up opens!! 
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
 		Thread.sleep(2000);		
@@ -88,7 +85,7 @@ public class tc19SQuarterlySummaryReport {
 				
 		Thread.sleep(2000);	
 
-		ba.closeBrowser(driverSF);
+//		ba.closeBrowser(driverSF);
 		  
 		  // PASSES - How to assess ??? for each test ? with a screenshot?
 		}

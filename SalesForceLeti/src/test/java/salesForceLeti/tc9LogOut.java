@@ -11,17 +11,14 @@ import org.testng.annotations.Test;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import salesForceUtility.LoginUtility;
 
-public class tc9LogOut {
+public class tc9LogOut extends BaseAction {
 
 	@Test
 	public static void LogOut () throws InterruptedException {
 //1 user menu for <username> drop down is selected >>	Drop down with "My profile", "My Settings", "Developer Console","Logout" is displayed
 //2 Click on Logout option from the drop down >>	Logout  of current sales force application  and https://login.salesforce.com/ page is displayed.
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();

@@ -15,16 +15,13 @@ import salesForceUtility.LoginUtility;
 3	Select 'My Contacts'	Select 'My Contacts'  VIEw from the drop down list in contacts page	My contacts VIEw should be displayed
 
 */
-public class tc28checkMyContacts {
+public class tc28checkMyContacts extends BaseAction {
 //1.	Launch and Login 
 	
 	@Test
 	public static void checkMyContacts () throws InterruptedException {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -36,7 +33,7 @@ public class tc28checkMyContacts {
 		driverSF.findElement(By.id("Contact_Tab")).click();
 		Thread.sleep(2000);
 		
-// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+// a pop up opens!! 
 		driverSF.findElement(By.id("tryLexDialog"));
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
@@ -56,6 +53,6 @@ public class tc28checkMyContacts {
     	Assert.assertEquals(actual2, expected2, "My contacts view should be displayed");
  
 // How to assess- Screenshot?	
-	ba.closeBrowser(driverSF);
+//	ba.closeBrowser(driverSF);
 	}		
 }

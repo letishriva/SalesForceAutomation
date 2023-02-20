@@ -17,16 +17,12 @@ import salesForceUtility.LoginUtility;
 3	Edit the view	Change the <view name> to <new view name>. Select the filters field <Account name>, operator  <contains>, Value <a>. In Select fields to display,  Click on save button.	View page with <new view name> in the drop down is displayed. View will have Last activity column added and the data of the list will have all account names which has <a> in the text.
  */
 
-public class tc12EditView {
+public class tc12EditView extends BaseAction {
 	@Test
-	
 	public static void editView() throws InterruptedException {
 //1.launch and Login 	Launch https://www.login.salesforce.com and provide positive <username> and <password> data to SalesForce Application.
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -39,11 +35,11 @@ public class tc12EditView {
 		driverSF.findElement(By.id("Account_Tab")).click();// click on Accounts link
 		Thread.sleep(2000);
 		
-// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+// a pop up opens!! 
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
 		Thread.sleep(2000);
-//--------------------------------------------------------------------------------------------------
+
 		// Assertion workimFIND "Leti Casta" link by xpath
 		String expectedAccountsUsername = "Leti Casta";
 		String actualAccountsUsername = driverSF.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr/td[1]/div/div[2]/div[2]/div[2]/div[1]/div/a")).getText();//username displayed on account page
@@ -88,7 +84,7 @@ public class tc12EditView {
 		
 // ok for all - ??? How to assess : View will have Last activity column added and the data of the list will have all account names which has <a> in the text.
 
-		ba.closeBrowser(driverSF);
+	//	ba.closeBrowser(driverSF);
 		
 		
 	}

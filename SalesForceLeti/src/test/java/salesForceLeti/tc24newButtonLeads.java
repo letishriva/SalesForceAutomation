@@ -14,14 +14,11 @@ import salesForceUtility.LoginUtility;
 5	Click save button	click on the save button	new lead should be saved and the newly created lead view page should be opened
 
 */
-public class tc24newButtonLeads {
+public class tc24newButtonLeads extends BaseAction {
 	    @Test
     public static void newButtonLeads() throws InterruptedException {
-    	WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -30,6 +27,15 @@ public class tc24newButtonLeads {
 		Thread.sleep(2000);
     	
 //2	Click New button	click on the new button displayed in the Recent Leads frame	New Lead creation page should open  	
+		
+    	driverSF.findElement(By.id("Lead_Tab")).click();
+    	Thread.sleep(3000);
+    	// a pop up opens!! 
+    	driverSF.switchTo().activeElement();
+    	driverSF.findElement(By.id("tryLexDialogX")).click();
+    	Thread.sleep(3000);
+		
+		
 		driverSF.findElement(By.name("new")).click(); // new Button
 		Thread.sleep(3000);
     	String expected2 = "Lead Edit: New Lead ~ Salesforce - Developer Edition";
@@ -52,7 +58,7 @@ public class tc24newButtonLeads {
     	String actual3 = driverSF.getTitle();
     	
     	Assert.assertEquals(actual3, expected3, "New Lead Creation page saved and opened");
-    	ba.closeBrowser(driverSF);
+//    	ba.closeBrowser(driverSF);
     	
        }
    }

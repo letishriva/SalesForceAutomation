@@ -20,20 +20,16 @@ import salesForceUtility.LoginUtility;
 4	Select report options	Select create date in the date field drop down, select <todays date> in From and To fileds on the unsaved report filed	List of accounts qualified is displayed
 5	Save report	Click on the save button on unsaved report page. Provide <report name>, <report unique name> in the pop window and click on save and run report button.	Report page with details and <report name>is displayed.
 
- 
  */
 
 
-public class tc14CreateAccountReport {
+public class tc14CreateAccountReport extends BaseAction {
 	@Test
 	
 	public static void createAccountReport() throws InterruptedException, AWTException {
 //1.launch and Login 	Launch https://www.login.salesforce.com and provide positive <username> and <password> data to SalesForce Application.
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -47,7 +43,7 @@ public class tc14CreateAccountReport {
 		driverSF.findElement(By.id("Account_Tab")).click();// click on Accounts link
 		Thread.sleep(2000);
 		
-// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+// a pop up opens!! 
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
 		Thread.sleep(2000);
@@ -104,7 +100,7 @@ public class tc14CreateAccountReport {
 		
 // how to assess that Newly added View should be displayed in the account view list ??
 		
-		ba.closeBrowser(driverSF);
+//		ba.closeBrowser(driverSF);
 		
 		
 	}

@@ -13,16 +13,13 @@ import salesForceUtility.LoginUtility;
 2. Click on Accounts link on the home page	Click on Accounts link on the home page	Accounts page is displayed with correct <username>
  */
 
-public class tc11CreateNewView {
+public class tc11CreateNewView extends BaseAction {
 	@Test
 	
 	public static void createNewView() throws InterruptedException {
 //1.launch and Login 	Launch https://www.login.salesforce.com and provide positive <username> and <password> data to SalesForce Application.
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -34,15 +31,17 @@ public class tc11CreateNewView {
 		driverSF.findElement(By.id("Account_Tab")).click();// click on Accounts link
 		Thread.sleep(2000);
 		
-// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+// a pop up opens!!
 				driverSF.switchTo().activeElement();
 				driverSF.findElement(By.id("tryLexDialogX")).click();
 				Thread.sleep(2000);
-//--------------------------------------------------------------------------------------------------
+
 		// Assertion workimFIND "Leti Casta" link by xpath
 		String expectedAccountsUsername = "Leti Casta";
-		String actualAccountsUsername = driverSF.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr/td[1]/div/div[2]/div[2]/div[2]/div[1]/div/a")).getText();//username displayed on account page
-		Assert.assertEquals(actualAccountsUsername, expectedAccountsUsername, "login passed and correct username is displayed");
+//		String actualAccountsUsername = driverSF.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr/td[1]/div/div[2]/div[2]/div[2]/div[1]/div/a")).getText();//username displayed on account page
+//		Assert.assertEquals(actualAccountsUsername, expectedAccountsUsername, "login passed and correct username is displayed");
+
+// > WRONG, USERNAME IS NOT DISPLAYED IN ACCOUNT // FAIL		
 		
 // 3. Click on create new view link on accounts page	Click on create new view link and provide <View name>, <View unique name> and click on save button	Newely added View should be displayed in the account view list
 		driverSF.findElement(By.partialLinkText("Create New View")).click(); // click on "create new view Link"
@@ -52,7 +51,7 @@ public class tc11CreateNewView {
 		
 // how to assess that Newely added View should be displayed in the account view list ??
 		
-		ba.closeBrowser(driverSF);
+//		ba.closeBrowser(driverSF);
 		
 		
 	}

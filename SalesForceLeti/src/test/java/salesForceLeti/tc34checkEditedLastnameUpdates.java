@@ -16,16 +16,13 @@ import salesForceUtility.LoginUtility;
 5	Edit 'Last Name' field.	Edit the Last Name to 'Abcd' and click Saveall button	1. The 'Edit Profile' popup should be closed.            2. Verify that the updated LastName of the account holder is displayed at the top left hand side of the page.                                                                     3. Verify that the 'User menu for FirstName LastName' menu button shows the updated Last Name, at the top right hand side of the page.          4. Verify that the 'User:FirstName LastName' page has the updated LastName.
                                                                                     2. This page should be same as the 'My Profile' page.
 */
-public class tc34checkEditedLastnameUpdates {
+public class tc34checkEditedLastnameUpdates extends BaseAction{
 //1.	Launch and Login 
 
 	@Test
 	public static void checkEditedLastnameUpdates () throws InterruptedException, AWTException {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -40,11 +37,11 @@ public class tc34checkEditedLastnameUpdates {
 		Assert.assertEquals(actualPage, expectedPage, "Home page passed");
 		Thread.sleep(2000);
 
-		// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+		// a pop up opens!! 
 		driverSF.findElement(By.id("tryLexDialog"));
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
-		Thread.sleep(2000);		
+		Thread.sleep(3000);		
 
 //2	Click on the 'FirstName LastName' link in the home page	Click on the FirstName LastName link at the left had side of the home page	The 'User:FirstName LastName' page should be displayed. 	
 		WebElement link = driverSF.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr/td[1]/div/div[2]/div[2]/div[2]/div[1]/div/a")); 
@@ -62,6 +59,7 @@ public class tc34checkEditedLastnameUpdates {
 //3	Click on the 'Edit Profile' icon near Contact	Click on the 'Edit Profile' icon near Contact	The 'Edit Profile' popup should be displayed with the 'Contact' tab selected.
 		WebElement iconEditProfile = driverSF.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr/td/div/div[2]/div[2]/div[1]/h3/div/div/a/img")); 
 		iconEditProfile.click();
+		Thread.sleep(4000);
 //		WebElement contactTab = driver.findElement(By.partialLinkText("Contact")); //contact tab displayed 
 //		Assert.assertSame(contactTab, "contactTab");
 		
@@ -69,11 +67,11 @@ public class tc34checkEditedLastnameUpdates {
 		
 		WebElement newFrame = driverSF.findElement(By.xpath("//iframe[@id='contactInfoContentId']")); // search the frame to switch to it
 		driverSF.switchTo().frame(newFrame);
-		newFrame.click();
 		Thread.sleep(2000);
+		System.out.println("we are about to click on AboutTab");
 		WebElement aboutTab = driverSF.findElement(By.id("aboutTab")); 
 		aboutTab.click();
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		
 // 5	Edit 'Last Name' field.	Edit the Last Name to 'Abcd' and click Saveall button	1. The 'Edit Profile' popup should be closed.            2. Verify that the updated LastName of the account holder is displayed at the top left hand side of the page.                                                                     3. Verify that the 'User menu for FirstName LastName' menu button shows the updated Last Name, at the top right hand side of the page.          4. Verify that the 'User:FirstName LastName' page has the updated LastName.
 // 2. This page should be same as the 'My Profile' page.
@@ -102,6 +100,23 @@ public class tc34checkEditedLastnameUpdates {
 		String expectedNameUpdated = "Leti Abcd ";
 		Assert.assertEquals(actualNameUpdated, expectedNameUpdated, "User First and Last Name displayed in link has been updated");
 		
-		ba.closeBrowser(driverSF);
+// FOR FUTURE TESTS, WE NEED TO REVERT BACK THE NAME TO CASTA!
+		WebElement iconEditProfile2 = driverSF.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr/td/div/div[2]/div[2]/div[1]/h3/div/div/a/img")); 
+		iconEditProfile2.click();
+		Thread.sleep(4000);
+		WebElement newFrame2 = driverSF.findElement(By.xpath("//iframe[@id='contactInfoContentId']")); // search the frame to switch to it
+		driverSF.switchTo().frame(newFrame2);
+		Thread.sleep(2000);
+		System.out.println("we are about to click on AboutTab");
+		WebElement aboutTab2 = driverSF.findElement(By.id("aboutTab")); 
+		aboutTab2.click();
+		Thread.sleep(2000);
+		WebElement updatedLastNameBox2 = driverSF.findElement(By.id("lastName"));
+		updatedLastNameBox2.click();
+		updatedLastNameBox2.clear();
+		updatedLastNameBox2.sendKeys("Casta");
+		driverSF.findElement(By.xpath("/html/body/div/div/div/div[2]/form/div/input[1]")).click();
+		driverSF.switchTo().parentFrame(); 
+//		ba.closeBrowser(driverSF);
 	}		
 }

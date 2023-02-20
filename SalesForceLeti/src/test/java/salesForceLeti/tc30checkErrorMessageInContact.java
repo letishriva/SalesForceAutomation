@@ -18,16 +18,13 @@ Unique Name : EFGH"
 5	Click Save button	Click the Save Button	Error message is appeared under the VIEw Name fIEld. The Error message appears as "Error: You must enter a value".
 
 */
-public class tc30checkErrorMessageInContact {
+public class tc30checkErrorMessageInContact extends BaseAction {
 //1.	Launch and Login 
 	
 	@Test
 	public static void checkErrorMessageInContact () throws InterruptedException {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -39,7 +36,7 @@ public class tc30checkErrorMessageInContact {
 		driverSF.findElement(By.id("Contact_Tab")).click();
 		Thread.sleep(2000);
 		
-// a pop up opens!! we need to close it before  we can reach "create new account"-----------------
+// a pop up opens!! 
 		driverSF.findElement(By.id("tryLexDialog"));
 		driverSF.switchTo().activeElement();
 		driverSF.findElement(By.id("tryLexDialogX")).click();
@@ -66,6 +63,7 @@ public class tc30checkErrorMessageInContact {
     	String errorMessageText = (String) js.executeScript("return arguments[0].textContent;", errorMessage);
     	Assert.assertEquals(errorMessageText, expectedErrorMessage, "Error Message for Contacts displayed"); // the element is in a div and can't be accessed via getText()
  
-    	ba.closeBrowser(driverSF);
+    	// pass and assessed
+ //   	ba.closeBrowser(driverSF);
 	}		
 }

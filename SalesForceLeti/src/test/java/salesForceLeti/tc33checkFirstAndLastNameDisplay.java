@@ -12,16 +12,13 @@ import salesForceUtility.LoginUtility;
 2	Click Home Tab	Click on Home Tab	1. Home page should be displayed. 2. Verify that the FirstName LastName of the account holder is displayed at the top left hand side of the page, as a link.                                                                                        
 3	Click on the FirstName LastName link in the home page	Click on the FirstName LastName link in the home page	1. 'User:FirstName LastName' page should be displayed.                                                                                                2. This page should be same as the 'My Profile' page.
 */
-public class tc33checkFirstAndLastNameDisplay {
+public class tc33checkFirstAndLastNameDisplay extends BaseAction {
 //1.	Launch and Login 
 	
 	@Test
 	public static void checkFirstAndLastNameDisplay () throws InterruptedException {
-		WebDriver driverSF;		
-		BaseAction ba = new BaseAction();
+		WebDriver driverSF = driver;		
 		LoginUtility loginSF =  new LoginUtility();
-		driverSF = ba.getWebDriver("chrome");
-		ba.setMaxWindowBrowser(driverSF);
 		loginSF.loginToSalesForce(driverSF);
 		Thread.sleep(2000); // we let the page load
 		String actual = driverSF.getTitle();
@@ -37,7 +34,7 @@ public class tc33checkFirstAndLastNameDisplay {
 		Assert.assertEquals(actualPage, expectedPage, "Home page passed");
 		Thread.sleep(2000);
 		
-// a pop up opens!! we need to close it before we can reach "create new account"-----------------
+// a pop up opens!! 
     	driverSF.switchTo().activeElement();
     	driverSF.findElement(By.id("tryLexDialogX")).click();
     	Thread.sleep(3000);
@@ -50,6 +47,6 @@ public class tc33checkFirstAndLastNameDisplay {
     	Assert.assertEquals(actualLinkName, expectedLinkName, "User First and Last Name displayed");
     	Thread.sleep(2000);
     	
-    	ba.closeBrowser(driverSF);
+//    	ba.closeBrowser(driverSF);
 	}		
 }
